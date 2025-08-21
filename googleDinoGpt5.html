@@ -134,22 +134,34 @@ function resizeCanvas() {
     }
 
 let dinoRunImgs = [new Image(), new Image()];
-dinoRunImgs[0].src = "img/muratt.jpg";
-dinoRunImgs[1].src = "img/muratt.jpg";
+dinoRunImgs[0].src = "img/oguz1.jpg"; // yerdeyken
+dinoRunImgs[1].src = "img/oguz2.jpg"; // zıplarken
 
 function drawPlayer() {
-  const { x, y, w, h, animTime } = player;
+  const { x, y, w, h } = player;
   ctx.save();
   ctx.translate(x, y - h);
-  
-  const frame = Math.floor(animTime * 10) % dinoRunImgs.length;
-  const img = dinoRunImgs[frame];
 
-  if (img.complete) ctx.drawImage(img, 0, 0, w, h);
-  else ctx.fillStyle = '#222', ctx.fillRect(0, 0, w, h);
+  let img;
+
+  if (y < GROUND_Y) {
+    // zıplıyorsa
+    img = dinoRunImgs[1];
+  } else {
+    // yerdeyse
+    img = dinoRunImgs[0];
+  }
+
+  if (img.complete) {
+    ctx.drawImage(img, 0, 0, w, h);
+  } else {
+    ctx.fillStyle = '#222';
+    ctx.fillRect(0, 0, w, h);
+  }
 
   ctx.restore();
 }
+
 
     function addCloud(xStart) {
       clouds.push({ x: xStart || canvas.width + rand(0, 200), y: rand(40, 140), v: rand(10, 30), s: rand(30, 60) });
@@ -188,15 +200,26 @@ function drawPlayer() {
     }
 
 // 🔹 Engel resimlerini yükle
+// 🔹 Engel resimlerini yükle
 const obstacleImgs = [
-  "img/aysee.jpg", // kendi resminizin adı
-  "img/ahsen2.jpg"
+  "img/ahsen2.jpg",
+  "img/aysee.jpg",
+  "img/buseA.jpg",
+  "img/buseB.jpg",
+  "img/iremmm.jpg",
+  "img/kadirhan.jpg",
+  "img/mesih.jpg",
+  "img/murat.jpg",
+  "img/muratt.jpg",
+  "img/ozge.jpg",
+  "img/ozlem.jpg",
+  "img/rojda.jpg",
+  "img/yezgi.jpg"
 ].map(src => {
   const img = new Image();
   img.src = src;
   return img;
 });
-
 const OBSTACLE_W = 50; // sabit genişlik
 const OBSTACLE_H = 70; // sabit yükseklik
 
